@@ -368,13 +368,46 @@
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
-  @media (max-width: 760px) {
-  .lab-body { grid-template-columns: 1fr; }
-  .lab-sidebar { position: static; }
-  .lab-title { font-size: 1.8rem; }
-  .topbar-nav { display: none; }
+@media (max-width: 760px) {
+  .lab-header {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
+
+  .lab-diagram {
+    width: 100%;
+    order: -1;
+  }
+
+  .lab-title {
+    font-size: 1.8rem;
+  }
+
+  .lab-body {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-sidebar {
+    position: static;
+  }
+
+  .topbar-nav {
+    display: none;
+  }
+
+  .back-link {
+    margin-bottom: 1.5rem;
+  }
+
+  pre {
+    margin-left: 0;
+    font-size: 0.75rem;
+  }
+
+  .step-desc {
+    margin-left: 0;
+  }
+}
 </style>
 </head>
 <body>

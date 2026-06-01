@@ -1,6 +1,6 @@
 ---
 layout: lab
-title: Inter-VLAN L3 Troubleshooting
+title: Inter-VLAN L3 
 description: The next step from VLANs — inter-VLAN routing using a Layer 3 switch. A Cisco Packet Tracer lab simulating a real office network with IT and HR departments on separate VLANs
 diagram: /InterVLAN-L3/diagram.png
 

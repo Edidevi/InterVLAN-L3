@@ -402,14 +402,13 @@
       <span class="tag">{{ concept }}</span>
       {% endfor %}
     </div>
+   
+   {% if page.diagram %}
+    <div class="lab-diagram">
+      <img src="{{ page.diagram }}" alt="{{ page.title }} network diagram">
+    </div>
+    {% endif %}
   </div>
-
-  <!-- DIAGRAM -->
-  {% if page.diagram %}
-  <div class="lab-diagram">
-    <img src="{{ page.diagram }}" alt="{{ page.title }} network diagram">
-  </div>
-  {% endif %}
 
   <!-- BODY -->
   <div class="lab-body">

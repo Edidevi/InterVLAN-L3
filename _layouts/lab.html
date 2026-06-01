@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }} — {{ site.title }}</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d1117;
+    --paper: #f8f7f4;
+    --accent: #1a6cf5;
+    --muted: #6b7280;
+    --border: #e5e2db;
+    --card: #ffffff;
+    --code-bg: #0d1117;
+    --code-text: #e6edf3;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  .site-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .topbar-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .topbar-nav { display: flex; gap: 2rem; list-style: none; }
+
+  .topbar-nav a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .topbar-nav a:hover { color: var(--accent); }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .back-link:hover { color: var(--accent); }
+
+  /* ── LAB HEADER ── */
+  .lab-header {
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .lab-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .lab-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .lab-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+
+  .lab-description {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 55ch;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Concept tags */
+  .concept-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: #eef3ff;
+    border: 1px solid #c8d8fa;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+  }
+
+  /* ── DIAGRAM IMAGE ── */
+  .lab-diagram {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 3.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .lab-diagram img {
+    width: 100%;
+    display: block;
+  }
+
+  /* ── TWO-COL LAYOUT ── */
+  .lab-body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+    align-items: start;
+    animation: fadeUp 0.6s 0.25s ease both;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .lab-content section {
+    margin-bottom: 3rem;
+  }
+
+  .section-heading {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Questions */
+  .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .question-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .question-q {
+    padding: 1rem 1.2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    background: #fafaf9;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .question-a {
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem;
+    color: #4b5563;
+    line-height: 1.7;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* Config steps */
+  .step {
+    margin-bottom: 2rem;
+  }
+
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+    margin-left: 2rem;
+    line-height: 1.6;
+  }
+
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    margin-left: 2rem;
+  }
+
+  code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+  /* ── SIDEBAR ── */
+  .lab-sidebar {
+    position: sticky;
+    top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .sidebar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+  }
+
+  .sidebar-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+
+  .hardware-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .hardware-list li {
+    font-size: 0.82rem;
+    color: #4b5563;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .hardware-list li::before {
+    content: '›';
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .learnings-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .learnings-list li {
+    font-size: 0.82rem;
+    color: #4b5563;
+    padding-left: 1rem;
+    border-left: 2px solid #c8d8fa;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-text { font-size: 0.78rem; color: var(--muted); }
+  .footer-text a { color: var(--accent); text-decoration: none; }
+  .footer-text a:hover { text-decoration: underline; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 760px) {
+    .lab-body { grid-template-columns: 1fr; }
+    .lab-sidebar { position: static; }
+    .lab-title { font-size: 1.8rem; }
+    .topbar-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="site-wrapper">
+
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <a class="topbar-logo" href="/">{{ site.title | upcase }}</a>
+    <ul class="topbar-nav">
+      {% for item in site.nav %}
+      <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <!-- BACK -->
+  <a class="back-link" href="/">
+    ← Back to all labs
+  </a>
+
+  <!-- HEADER -->
+  <div class="lab-header">
+    <span class="lab-eyebrow">Network Engineering Lab</span>
+    <h1 class="lab-title">{{ page.title }}</h1>
+    <p class="lab-description">{{ page.description }}</p>
+    <div class="concept-tags">
+      {% for concept in page.concepts %}
+      <span class="tag">{{ concept }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- DIAGRAM -->
+  {% if page.diagram %}
+  <div class="lab-diagram">
+    <img src="{{ page.diagram }}" alt="{{ page.title }} network diagram">
+  </div>
+  {% endif %}
+
+  <!-- BODY -->
+  <div class="lab-body">
+    <div class="lab-content">
+
+      <!-- OBJECTIVE -->
+      {% if page.objective %}
+      <section>
+        <h2 class="section-heading">📌 Project Objective</h2>
+        <p style="font-size:0.92rem; color:#4b5563; line-height:1.7;">{{ page.objective }}</p>
+      </section>
+      {% endif %}
+
+      <!-- QUESTIONS -->
+      {% if page.questions %}
+      <section>
+        <h2 class="section-heading">❓ Questions While Building</h2>
+        <div class="question-list">
+          {% for q in page.questions %}
+          <div class="question-item">
+            <div class="question-q">{{ q.q }}</div>
+            <div class="question-a">{{ q.a }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      <!-- CONFIG STEPS -->
+      {% if page.steps %}
+      <section>
+        <h2 class="section-heading">💻 Configuration Steps</h2>
+        {% for step in page.steps %}
+        <div class="step">
+          <div class="step-title">
+            <span class="step-num">{{ forloop.index }}</span>
+            {{ step.title }}
+          </div>
+          {% if step.desc %}<p class="step-desc">{{ step.desc }}</p>{% endif %}
+          {% if step.code %}
+          <pre>{{ step.code }}</pre>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="lab-sidebar">
+
+      {% if page.hardware %}
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">🛠️ Hardware Used</div>
+        <ul class="hardware-list">
+          {% for item in page.hardware %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if page.learnings %}
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">📈 Key Learnings</div>
+        <ul class="learnings-list">
+          {% for item in page.learnings %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text">Maintained by <a href="https://github.com/{{ site.github_username }}" target="_blank">{{ site.title }}</a></span>
+    <span class="footer-text">Hosted on <a href="{{ site.footer.hosted_url }}" target="_blank">{{ site.footer.hosted_on }}</a></span>
+  </footer>
+
+</div>
+</body>
+</html>

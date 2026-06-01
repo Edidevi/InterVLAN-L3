@@ -89,7 +89,12 @@
     margin-bottom: 3rem;
     animation: fadeUp 0.6s 0.15s ease both;
   }
-
+ 
+   .lab-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+   }
   .lab-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -148,11 +153,9 @@
   /* ── DIAGRAM IMAGE ── */
   .lab-diagram {
     width: 60%;
-    margin: 0 auto 3.5rem;
     border-radius: 12px;
-    border: 1px solid var(--border);
     overflow: hidden;
-    animation: fadeUp 0.6s 0.2s ease both;
+    border: none;
   }
 
   .lab-diagram img {
@@ -393,7 +396,8 @@
   </a>
 
   <!-- HEADER -->
-  <div class="lab-header">
+<div class="lab-header">
+  <div class="lab-header-left">
     <span class="lab-eyebrow">Network Engineering Lab</span>
     <h1 class="lab-title">{{ page.title }}</h1>
     <p class="lab-description">{{ page.description }}</p>
@@ -402,13 +406,14 @@
       <span class="tag">{{ concept }}</span>
       {% endfor %}
     </div>
-   
-   {% if page.diagram %}
-    <div class="lab-diagram">
-      <img src="{{ page.diagram }}" alt="{{ page.title }} network diagram">
-    </div>
-    {% endif %}
   </div>
+
+  {% if page.diagram %}
+  <div class="lab-diagram">
+    <img src="{{ page.diagram }}" alt="{{ page.title }} network diagram">
+  </div>
+  {% endif %}
+</div>
 
   <!-- BODY -->
   <div class="lab-body">
